@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Create Medical Record{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>Create Medical Record for {{ patient.first_name }} {{ patient.last_name }}</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="diagnosis" class="form-label">Diagnosis</label>
+            <textarea class="form-control" id="diagnosis" name="diagnosis" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="treatment" class="form-label">Treatment</label>
+            <textarea class="form-control" id="treatment" name="treatment" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="medications" class="form-label">Medications</label>
+            <input type="text" class="form-control" id="medications" name="medications">
+        </div>
+        <div class="mb-3">
+            <label for="notes" class="form-label">Notes</label>
+            <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Record</button>
+        <a href="{{ url_for('doctor.view_patient_records', patient_id=patient.patient_id) }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

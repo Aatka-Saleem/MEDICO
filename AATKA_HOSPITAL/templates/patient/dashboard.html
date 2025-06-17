@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Patient Dashboard{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">PATIENT DASHBOARD</h2>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="my-2">PROFILE</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Name:</strong></p>
+                            <p><strong>Date of Birth:</strong></p>
+                            <p><strong>Gender:</strong></p>
+                            <p><strong>Email:</strong></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{ patient.first_name }} {{ patient.last_name }}</p>
+                            <p>{{ patient.date_of_birth }}</p>
+                            <p>{{ patient.gender }}</p>
+                            <p>{{ patient.email }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Contact Number:</strong></p>
+                            <p><strong>Address:</strong></p>
+                        </div>
+                        <div class="col-md-6">
+                             <p>{{ patient.contact_number }}</p>
+                            <p>{{ patient.address }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-info text-white">
+                    <h4 class="my-2">YOUR APPOINTMENTS</h4>
+                </div>
+                <div class="card-body">
+                    {% if appointments %}  {# Changed: Check if appointments exist #}
+                        <div class="list-group">
+                            {% for appointment in appointments %}  {# Iterate through appointments #}
+                                <div class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">
+                                            {{ appointment.doctor.first_name }} {{appointment.doctor.last_name}} {{appointment.doctor.specialization}}{# Access doctor's name #}
+                                        </div>
+                                        <span class="text-muted">
+                                            {{ appointment.appointment_datetime.strftime('%Y-%m-%d %I:%M %p') }}  {# Format datetime #}
+                                        </span><br>
+                                        <span class="text-muted">
+                                            {{ appointment.reason }}
+                                        </span>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">{{ appointment.status }}</span>  {# Display status #}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}  {# Changed:  No appointments message #}
+                        <p class="text-muted">No appointments Yet.</p>
+                    {% endif %}
+                    <a href="{{ url_for('patient.book_appointment') }}" class="btn btn-outline-success mt-3">Book New Appointment</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-success text-white">
+                    <h4 class="my-2">MEDICAL RECORDS</h4>
+                </div>
+                <div class="card-body">
+                    <a href="{{ url_for('patient.view_medical_records') }}" class="btn btn-outline-secondary">View Medical Records</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

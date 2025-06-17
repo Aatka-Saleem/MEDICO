@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Medical Records{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Medical Records</h2>
+    {% if medical_records %}
+        <div class="accordion" id="medicalRecordsAccordion">
+            {% for record in medical_records %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading{{ record.record_id }}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ record.record_id }}" aria-expanded="false" aria-controls="collapse{{ record.record_id }}">
+                            Record Date: {{ record.record_datetime.strftime('%Y-%m-%d %I:%M %p') }} - Doctor: {{record.doctor.first_name}} {{record.doctor.last_name}}
+                        </button>
+                    </h2>
+                    <div id="collapse{{ record.record_id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ record.record_id }}" data-bs-parent="#medicalRecordsAccordion">
+                        <div class="accordion-body">
+                            <p><strong>Diagnosis:</strong> {{ record.diagnosis }}</p>
+                            <p><strong>Treatment:</strong> {{ record.treatment }}</p>
+                            <p><strong>Medications:</strong> {{ record.medications }}</p>
+                            <p><strong>Notes:</strong> {{ record.notes }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">No medical records found.</p>
+    {% endif %}
+</div>
+{% endblock %}

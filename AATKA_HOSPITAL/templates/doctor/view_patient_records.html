@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Patient Medical Records{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>Medical Records for {{ patient.first_name }} {{ patient.last_name }}</h2>
+    {% if records %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Record ID</th>
+                    <th>Date/Time</th>
+                    <th>Diagnosis</th>
+                    <th>Treatment</th>
+                    <th>Medications</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                    <tr>
+                        <td>{{ record.record_id }}</td>
+                        <td>{{ record.record_datetime }}</td>
+                        <td>{{ record.diagnosis }}</td>
+                        <td>{{ record.treatment }}</td>
+                        <td>{{ record.medications }}</td>
+                        <td>{{ record.notes }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No medical records found for this patient.</p>
+    {% endif %}
+    <a href="{{ url_for('doctor.view_patients') }}" class="btn btn-secondary">Back to Patients</a>
+    <a href="{{ url_for('doctor.create_medical_record', patient_id=patient.patient_id) }}" class="btn btn-primary">Add New Record</a>
+</div>
+{% endblock %}

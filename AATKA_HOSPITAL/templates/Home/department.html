@@ -1,0 +1,301 @@
+{% extends "layout.html" %}
+{% block body %}
+<style>
+/* --- General Styles (applied to the whole page) --- */
+body {
+    font-family: 'Inter', sans-serif; /* More modern font */
+    color: #333;
+    background-color: #f8f9fa; /* Soft background color */
+}
+
+.container {
+    max-width: 1200px; /* Standard max-width for larger screens */
+}
+
+/* --- Department Area Styles --- */
+.department_area {
+    padding: 80px 0; /* Increased padding for spaciousness */
+    background-color: #f8f9fa;
+}
+
+.section-tittle {
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.section-tittle span {
+    color: #00b0ff; /* A brighter accent color */
+    font-size: 20px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 12px;
+    text-transform: uppercase; /* Uppercase for emphasis */
+    letter-spacing: 2px;
+}
+
+.section-tittle h2 {
+    color: #2c3e50;
+    font-size: 42px; /* Larger heading */
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 20px;
+}
+
+.section-tittle p {
+    color: #666;
+    font-size: 18px;
+    line-height: 1.7;
+    max-width: 80%; /* Increased max-width for better readability */
+    margin: 0 auto; /* Center the paragraph */
+}
+
+/* --- Department Tab Styles --- */
+.depart_ment_tab {
+    margin-bottom: 50px;
+}
+
+.depart_ment_tab .nav-link {
+    padding: 30px 25px;
+    border-radius: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px; /* Increased width */
+    background-color: #fff;
+    color: #495057;
+    margin: 15px;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; /* Added transform */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow */
+    border: none;
+}
+
+.depart_ment_tab .nav-link:hover,
+.depart_ment_tab .nav-link.active {
+    background-color: #00b0ff; /* Brighter hover color */
+    color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); /* Increased shadow on hover/active */
+    transform: translateY(-4px); /* Slight lift on hover/active */
+}
+
+.depart_ment_tab .nav-link i {
+    margin-bottom: 15px;
+    font-size: 36px; /* Larger icon */
+    color: #00b0ff; /* Icon color same as accent */
+}
+
+.depart_ment_tab .nav-link.active i{
+    color: white;
+}
+
+.depart_ment_tab .nav-link h4 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 0;
+    transition: color 0.3s ease; /* Added color transition */
+}
+
+.depart_ment_tab .nav-link:hover h4,
+.depart_ment_tab .nav-link.active h4 {
+    color: white;
+}
+
+/* --- Department Main Info Styles --- */
+.dept_main_info {
+    padding: 60px; /* Increased padding */
+    border-radius: 12px;
+    background-color: #ffffff;
+    margin-top: 60px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+}
+
+.tab-pane {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    transform: translateY(30px);
+}
+
+.tab-pane.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dept_info h3 {
+    color: #00b0ff;
+    margin-bottom: 30px;
+    font-size: 36px; /* Larger heading */
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.dept_info p {
+    line-height: 1.9; /* Improved line height */
+    color: #555;
+    font-size: 18px;
+    max-width: 95%; /* Slightly wider text */
+}
+
+.dept_info ul{
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+.dept_info ul li{
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: #555;
+}
+
+.dept_thumb {
+    border-radius: 12px;
+    overflow: hidden; /* Ensure image doesn't overflow rounded corners */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+.dept_thumb img {
+    width: 100%;
+    /*height: auto;  Removed fixed height, allow natural proportion */
+    transition: transform 0.3s ease;
+    display: block; /*removes extra space below image*/
+}
+
+.dept_thumb img:hover {
+    transform: scale(1.04); /* Subtle zoom on hover */
+}
+
+/* --- Responsive Styles --- */
+@media (max-width: 1200px) {
+    .depart_ment_tab .nav-link {
+        min-width: 180px;
+        padding: 25px 20px;
+    }
+
+    .dept_info h3 {
+        font-size: 32px;
+    }
+
+    .dept_info p {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 992px) {
+    .depart_ment_tab .nav-link {
+        min-width: 160px;
+        padding: 20px 15px;
+        margin-bottom: 20px;
+    }
+
+    .dept_thumb {
+        margin-top: 40px;
+    }
+
+    .section-tittle h2 {
+        font-size: 38px;
+    }
+}
+
+@media (max-width: 768px) {
+    .depart_ment_tab .nav-link {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        min-width: 100%;
+        margin-right: 0;
+    }
+
+    .depart_ment_tab ul {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .dept_info h3 {
+        font-size: 28px;
+    }
+
+    .dept_info p {
+        font-size: 16px;
+    }
+
+    .section-tittle h2{
+        font-size: 34px;
+    }
+}
+
+@media (max-width: 576px) {
+    .section-tittle h2 {
+        font-size: 30px;
+    }
+
+    .dept_main_info {
+        padding: 30px;
+    }
+
+    .depart_ment_tab .nav-link{
+        padding: 15px;
+    }
+}
+</style>
+
+<main>
+    <div class="department_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-tittle text-center">
+                        <span>Our Departments</span>
+                        <h2>Explore Our Medical Services</h2>
+                        <p>We offer a wide range of specialized medical services, delivered by expert physicians and caring staff,
+                        to ensure the best possible care for you and your family.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="depart_ment_tab">
+                        <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                            {% for dept in departments %}
+                            <li class="nav-item">
+                                <a class="nav-link {% if loop.first %}active{% endif %}" id="{{ dept.name|lower }}-tab"
+                                   data-toggle="tab" href="#{{ dept.name|lower }}" role="tab"
+                                   aria-controls="{{ dept.name|lower }}"
+                                   aria-selected="{{ 'true' if loop.first else 'false' }}">
+                                    <i class="fa-solid fa-stethoscope"></i>
+                                    <h4>{{ dept.name }}</h4>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="dept_main_info">
+                <div class="tab-content" id="myTabContent">
+                    {% for dept in departments %}
+                    <div class="tab-pane fade {% if loop.first %}show active{% endif %}" id="{{ dept.name|lower }}"
+                         role="tabpanel" aria-labelledby="{{ dept.name|lower }}-tab">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col-lg-7">
+                                <div class="dept_info">
+                                    <h3>{{ dept.name }}</h3>
+                                    <p>{{ dept.description }}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="dept_thumb">
+                                    <img src="{{ url_for('static', filename='assets/img/gallery/gallery3.png') }}"
+                                         alt="{{ dept.name }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

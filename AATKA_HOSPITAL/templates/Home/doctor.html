@@ -1,0 +1,415 @@
+{% extends "layout.html" %}
+{% block body %}
+<style>
+/* --- Refined Doctor Interface - Enhanced with Random Images and Filtering Links --- */
+body {
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    background-color: #f8f9fa;
+    line-height: 1.6;
+    transition: background-color 0.3s ease; /* Subtle transition */
+}
+
+.container {
+    max-width: 1200px;
+}
+
+/* --- Enhanced Header Design --- */
+.page-banner {
+    background-color: #007bff;
+    padding: 80px 0; /* Slightly increased padding */
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 12px 12px; /* Soft bottom corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.page-banner::before,
+.page-banner::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.15); /* Slightly more opaque */
+    border-radius: 50%;
+    opacity: 0.8; /* Add a bit more visual interest */
+}
+
+.page-banner::before {
+    bottom: -50px;
+    right: -100px;
+    width: 350px;
+    height: 350px;
+    transform: translate(50px, 50px);
+}
+
+.page-banner::after {
+    top: 10px;
+    left: 5%;
+    width: 120px;
+    height: 120px;
+}
+
+.banner-content {
+    text-align: center;
+    position: relative;
+    z-index: 5;
+    animation: fadeInDown 0.6s ease-out; /* Subtle animation */
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.banner-content h1 {
+    color: #fff;
+    font-size: 48px; /* Slightly larger */
+    font-weight: 700;
+    margin-bottom: 12px; /* Reduced margin */
+    letter-spacing: -0.8px;
+}
+
+.banner-content p {
+    color: rgba(255, 255, 255, 0.95); /* Slightly more opaque */
+    font-size: 19px;
+    max-width: 700px; /* Slightly wider */
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* --- Sticky Category Tabs --- */
+.category-tabs-wrapper {
+    position: sticky;
+    top: 60px; /* Adjust based on your main navigation height */
+    background: #f8f9fa; /* Match body background */
+    z-index: 20;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03); /* Subtle shadow for separation */
+}
+
+.category-tabs {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin: 20px auto; /* Added top/bottom margin */
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+    max-width: 100%; /* Ensure full width on smaller screens */
+}
+
+.category-tabs .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 0 20px; /* Add some horizontal padding */
+    margin: 0;
+    list-style: none;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+}
+
+.category-tabs .nav::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.category-tabs .nav-item {
+    flex: 0 0 auto;
+}
+
+.category-tabs .nav-link {
+    display: block;
+    padding: 16px 24px;
+    color: #555;
+    font-weight: 500;
+    font-size: 16px; /* Slightly larger font */
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    cursor: pointer; /* Make department names clickable */
+}
+
+.category-tabs .nav-link:hover,
+.category-tabs .nav-link.active,
+.category-tabs .nav-link.active-filter {
+    color: #007bff;
+    border-bottom-color: #007bff;
+}
+
+.category-tabs .nav-link.active-filter {
+    color: #00aaff; /* Example style for active filter */
+    border-bottom-color: #00aaff;
+}
+
+/* --- Enhanced Doctor Grid --- */
+.doctors-area {
+    padding: 30px 0 90px; /* Slightly increased padding */
+}
+
+.doctors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Slightly wider cards */
+    gap: 35px; /* Increased gap */
+    margin-top: 40px; /* Increased margin */
+}
+
+/* --- Enhanced Doctor Card --- */
+.doctor-card {
+    background-color: #fff;
+    border-radius: 12px; /* Slightly less rounded */
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08); /* More pronounced shadow */
+    transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), border-color 0.3s ease-in-out;
+    position: relative;
+    border: 1px solid transparent;
+}
+
+.doctor-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    border-color: #e0e0e0;
+}
+
+.doctor-card-header {
+    height: 220px; /* Increased height to provide more space for the profile picture */
+    background-color: #f0f4f8;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.doctor-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.4s ease-in-out;
+    opacity: 0.9;
+    image-rendering: optimizeQuality; /* For better quality scaling */
+    backface-visibility: hidden; /* Helps with smoother transformations */
+}
+
+.doctor-card:hover .doctor-image {
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+.doctor-symbol {
+    width: 90px; /* Slightly larger */
+    height: 90px; /* Slightly larger */
+    background-color: #007bff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 40px; /* Slightly larger */
+    font-weight: 700;
+    position: absolute; /* Position over the image if no image URL */
+    z-index: 2;
+    border: 5px solid #fff;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.doctor-card:hover .doctor-symbol {
+    transform: scale(1.15);
+}
+
+.doctor-card-body {
+    padding: 25px; /* Consistent padding */
+    text-align: center;
+}
+
+.doctor-name {
+    font-size: 24px; /* Slightly larger */
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px; /* Reduced margin */
+    transition: color 0.2s ease-in-out;
+}
+
+.doctor-card:hover .doctor-name {
+    color: #0056b3;
+}
+
+.doctor-specialty {
+    font-size: 16px; /* Slightly larger */
+    color: #666;
+    margin-bottom: 18px; /* Reduced margin */
+    position: relative;
+    padding-bottom: 18px; /* Adjusted padding */
+}
+
+.doctor-specialty::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px; /* Slightly wider */
+    height: 3px;
+    background-color: #007bff;
+    border-radius: 3px;
+    opacity: 0.8;
+}
+
+.doctor-info {
+    padding: 18px 0; /* Adjusted padding */
+    font-size: 15px; /* Slightly larger */
+    color: #555;
+    line-height: 1.7;
+    border-top: 1px solid #eee; /* Added separator */
+}
+
+.doctor-tags {
+    margin-top: 15px;
+}
+
+.doctor-tag {
+    display: inline-block;
+    background-color: #e7f3ff; /* Lighter background */
+    color: #007bff;
+    padding: 6px 14px; /* Adjusted padding */
+    border-radius: 30px;
+    font-size: 13px; /* Slightly larger */
+    font-weight: 500;
+    margin: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease-in-out;
+}
+
+.doctor-tag:hover {
+    background-color: #007bff;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* --- Responsive Design - Adjusted --- */
+@media (max-width: 991px) {
+    .doctors-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+    }
+
+    .page-banner {
+        padding: 60px 0;
+    }
+
+    .banner-content h1 {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 767px) {
+    .banner-content h1 {
+        font-size: 34px;
+    }
+
+    .banner-content p {
+        font-size: 17px;
+    }
+
+    .category-tabs .nav-link {
+        padding: 14px 20px;
+        font-size: 15px;
+    }
+
+    .doctors-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 575px) {
+    .banner-content h1 {
+        font-size: 30px;
+    }
+
+    .doctors-grid {
+        grid-template-columns: 1fr;
+        max-width: 350px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .category-tabs-wrapper {
+        top: 55px; /* Adjust for smaller navigation */
+    }
+
+    .category-tabs .nav {
+        padding: 0 10px;
+    }
+
+    .category-tabs .nav-link {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+}
+</style>
+
+<main>
+    <header class="page-banner">
+        <div class="container">
+            <div class="banner-content">
+                <h1>Our Dedicated Doctors</h1>
+                <p>Explore the profiles of our skilled physicians and specialists committed to your health and well-being.</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="category-tabs-wrapper">
+        <div class="container">
+            <div class="category-tabs">
+                <ul class="nav" id="category-tabs">
+                    {% for department in departments %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if active_department == department.name %}active-filter{% endif %}"
+                           href="{{ url_for('home.filter_doctors_by_department', department_name=department.name) }}"
+                           data-department="{{ department.name }}">{{ department.name }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <section class="doctors-area">
+        <div class="container">
+            <div class="doctors-grid" id="doctor-grid">
+                {% for doctor in doctors %}
+                <div class="doctor-card" data-department="{{ doctor.department.name }}">
+                    <div class="doctor-card-header">
+                        {% set random_image = ['assets/img/gallery/team1.png', 'assets/img/gallery/team2.png', 'assets/img/gallery/team3.png'] | random %}
+                        <img src="{{ url_for('static', filename=random_image) }}" alt="{{ doctor.first_name }} {{ doctor.last_name }}" class="doctor-image">
+                    </div>
+                    <div class="doctor-card-body">
+                        <h3 class="doctor-name">{{ doctor.first_name }} {{ doctor.last_name }}</h3>
+                        <div class="doctor-specialty">{{ doctor.specialization }} - {{ doctor.department.name }}</div>
+                        {% if doctor.qualifications %}
+                        <p class="doctor-info">{{ doctor.qualifications|truncate(100) }}</p>
+                        {% endif %}
+                        <div class="doctor-tags">
+                            <span class="doctor-tag">{{ doctor.department.name }}</span>
+                            <span class="doctor-tag">{{ doctor.specialization }}</span>
+                            {% if doctor.experience %}
+                            <span class="doctor-tag">{{ doctor.experience }} Years Exp.</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+// No need for JavaScript filtering anymore as the backend handles it
+// The links directly load the filtered content.
+</script>
+{% endblock %}

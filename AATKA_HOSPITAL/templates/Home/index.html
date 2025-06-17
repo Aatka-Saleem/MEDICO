@@ -1,0 +1,198 @@
+{% extends "layout.html" %}
+{% block body %}
+<style>
+.depart_ment_tab .nav-link {
+    padding: 100px 100px; /* Reasonable spacing */
+    border-radius: 15px; /* Smooth but not excessive */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+      min-width: 200px;
+}
+</style>
+
+
+<main>
+    <!--? slider Area Start-->
+    <div class="slider-area position-relative">
+        <div class="slider-active">
+            <!-- Single Slider -->
+            <div class="single-slider slider-height d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-7 col-lg-9 col-md-8 col-sm-9">
+                            <div class="hero__caption">
+                                <span>Committed to success</span>
+                                <h1 class="cd-headline letters scale">We care about your 
+                                    <strong class="cd-words-wrapper">
+                                        <b class="is-visible">health</b>
+                                        <b>recovery</b>
+                                        <b>safety</b>
+                                    </strong>
+                                </h1>
+                                <p data-animation="fadeInLeft" data-delay="0.1s">We are dedicated to providing exceptional medical care, ensuring your health and well-being with our expert team and advanced treatments.</p>
+                                <a href="{{ url_for('auth.login') }}" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.5s">Sign-up for Appointment <i class="ti-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>          
+            </div>
+            <!-- Single Slider -->
+            <div class="single-slider slider-height d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-7 col-lg-9 col-md-8 col-sm-9">
+                            <div class="hero__caption">
+                                <span>Committed to success</span>
+                                <h1 class="cd-headline letters scale">We care about your 
+                                    <strong class="cd-words-wrapper">
+                                        <b class="is-visible">health</b>
+                                        <b>recovery</b>
+                                        <b>safety</b>
+                                    </strong>
+                                </h1>
+                                <p data-animation="fadeInLeft" data-delay="0.1s">We are dedicated to providing exceptional medical care, ensuring your health and well-being with our expert team and advanced treatments.</p>
+                                <a href="{{ url_for('auth.login') }}" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.5s">Sign-up for Appointment <i class="ti-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>          
+            </div>
+        </div>
+    </div>
+    <!-- slider Area End-->
+    <!--? About Start-->
+    <div class="about-area section-padding2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-10">
+                    <div class="about-caption mb-50">
+                        <!-- Section Tittle -->
+                        <div class="section-tittle section-tittle2 mb-35">
+                            <span>About Our Company</span>
+                            <h2>Welcome To Our Hospital</h2>
+                        </div> 
+                        <p>Welcome to our hospital, where advanced medical technology meets personalized patient care. We are committed to delivering excellence in healthcare, ensuring a safe and comforting environment for all.At our hospital, advanced medical technology meets compassionate, personalized care. We are committed to delivering excellence in healthcare by combining cutting-edge diagnostics, innovative treatments, and a team of highly skilled medical professionals dedicated to your well-being.
+                        We believe in treating not just illnesses, but people—caring for both body and mind. Our team works collaboratively to create personalized treatment plans that align with your individual needs and preferences.
+                        Thank you for choosing us to be part of your healthcare journey. We are honored to serve you and are here to support you every step of the way.
+                        Your health is our mission. Your trust is our pride.</p>
+                                                
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <!-- about-img -->
+                    <div class="about-img ">
+                        <div class="about-font-img d-none d-lg-block">
+                            <img src="{{ url_for('static', filename='assets/img/gallery/about2.png') }}" alt="">
+                        </div>
+                        <div class="about-back-img">
+                            <img src="{{ url_for('static', filename='assets/img/gallery/about1.png') }}" alt="">
+                        </div>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About  End-->
+    <!--? department_area_start  -->
+    
+    <!-- depertment area end  -->
+     
+    <!--? All startups Start -->
+    <div class="all-starups-area testimonial-area fix">
+        <!-- left Contents -->
+        <div class="starups">
+            <!--? Testimonial Start -->
+            <div class="h1-testimonial-active">
+                <!-- Single Testimonial -->
+                <div class="single-testimonial text-center">
+                    <!-- Testimonial Content -->
+                    <div class="testimonial-caption ">
+                        <div class="testimonial-top-cap">
+                            <img src="{{ url_for('static', filename='assets/img/gallery/testimonial.png') }}" alt="">
+                            <p>“I am at an age where I just want to be fit and healthy our bodies are our responsibility! So start caring for your body and it will care for you. Eat clean it will care for yout hard.”</p>
+                        </div>
+                        <!-- founder -->
+                        <div class="testimonial-founder d-flex align-items-center justify-content-center">
+                            <div class="founder-img">
+                                <img src="{{ url_for('static', filename='assets/img/gallery/Homepage_testi.png') }}" alt="">
+                            </div>
+                            <div class="founder-text">
+                                <span>Margaret Lawson</span>
+                                <p>Chif Photographer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Testimonial End -->
+        </div>
+        <!--Right Contents  -->
+        <div class="starups-img"></div>
+    </div>
+    <!--All startups End -->
+     
+     
+    <!--? Gallery Area Start -->
+    <div class="gallery-area section-padding30">
+        <div class="container">
+            <!-- Section Tittle -->
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section-tittle text-center mb-100">
+                        <span>Our Gellary</span>
+                        <h2>Our Medical Camp</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Left -->
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="single-gallery mb-30">
+                                <div class="gallery-img big-img" style="background-image: url('{{ url_for('static', filename='assets/img/gallery/gallery1.png') }}');"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="single-gallery mb-30">
+                                <div class="gallery-img small-img" style="background-image: url('{{ url_for('static', filename='assets/img/gallery/gallery2.png') }}');"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="single-gallery mb-30">
+                                <div class="gallery-img small-img" style="background-image: url('{{ url_for('static', filename='assets/img/gallery/gallery3.png') }}');"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right -->
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="single-gallery mb-30">
+                                <div class="gallery-img small-img" style="background-image: url('{{ url_for('static', filename='assets/img/gallery/gallery4.png') }}');"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="single-gallery mb-30">
+                                <div class="gallery-img small-img" style="background-image: url('{{ url_for('static', filename='assets/img/gallery/gallery5.png') }}');"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="single-gallery mb-30">
+                                <div class="gallery-img big-img" style="background-image: url('{{ url_for('static', filename='assets/img/gallery/gallery6.png') }}');"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Gallery Area End -->
+    </main>
+    {% endblock %}

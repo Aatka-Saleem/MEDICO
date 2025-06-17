@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Admin Dashboard</h2>
+    <p class="lead">Welcome, Administrator!</p>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Departments</h5>
+                    <p class="card-text">Add, edit, and delete hospital departments.</p>
+                    <a href="{{ url_for('admin.list_departments') }}" class="btn btn-primary btn-sm">Go to Departments</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Register Doctor</h5>
+                    <p class="card-text">Register a new doctor in the system.</p>
+                    <a href="{{ url_for('admin.register_doctor') }}" class="btn btn-success btn-sm">Register Doctor</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Register Admin</h5>
+                    <p class="card-text">Register a new administrator.</p>
+                    <a href="{{ url_for('admin.register_admin') }}" class="btn btn-info btn-sm">Register Admin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">List Doctors</h5>
+                    <p class="card-text">View all registered doctors.</p>
+                    <a href="{{ url_for('admin.list_doctors') }}" class="btn btn-secondary btn-sm">View Doctors</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">List Admins</h5>
+                    <p class="card-text">View all registered administrators.</p>
+                    <a href="{{ url_for('admin.list_admins') }}" class="btn btn-secondary btn-sm">View Admins</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
